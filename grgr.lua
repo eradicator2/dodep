@@ -3655,13 +3655,13 @@ function Library:CreateESPPreview()
 
     local PreviewFrame = Library:Create('Frame', {
         Name = 'ESPPreview',
-        BackgroundColor3 = Color3.fromRGB(25, 25, 25),
+        BackgroundColor3 = Color3.fromRGB(20, 20, 20),
         BorderColor3 = Color3.fromRGB(50, 50, 50),
-        BorderSizePixel = 2,
-        Position = UDim2.new(0, 350, 0, 100),
-        Size = UDim2.new(0, 180, 0, 160),
+        BorderSizePixel = 1,
+        Position = UDim2.new(0, 600, 0, 100),
+        Size = UDim2.new(0, 200, 0, 200),
         Visible = true,
-        ZIndex = 50,
+        ZIndex = 100,
         Parent = ScreenGui
     })
 
@@ -3669,20 +3669,19 @@ function Library:CreateESPPreview()
         Text = "ESP Preview",
         Size = UDim2.new(1, 0, 0, 20),
         TextSize = 14,
-        ZIndex = 51,
+        ZIndex = 101,
         Parent = PreviewFrame
     })
 
     local PreviewCanvas = Library:Create('Frame', {
-        BackgroundColor3 = Color3.fromRGB(15, 15, 15),
+        BackgroundColor3 = Color3.fromRGB(10, 10, 10),
         BorderSizePixel = 0,
         Position = UDim2.new(0, 2, 0, 22),
         Size = UDim2.new(1, -4, 1, -24),
-        ZIndex = 51,
+        ZIndex = 101,
         Parent = PreviewFrame
     })
 
-    Library:MakeDraggable(PreviewFrame, 20)
     self.ESPPreview.PreviewFrame = PreviewFrame
     self.ESPPreview.PreviewCanvas = PreviewCanvas
 
@@ -3703,24 +3702,74 @@ function Library:UpdateESPPreview(espSettings)
 
     local canvas = self.ESPPreview.PreviewCanvas
 
-    local playerModel = Library:Create('Frame', {
-        BackgroundColor3 = Color3.fromRGB(80, 80, 80),
+    local playerHead = Library:Create('Frame', {
+        BackgroundColor3 = Color3.fromRGB(100, 100, 100),
         BorderSizePixel = 0,
-        Position = UDim2.new(0.4, 0, 0.4, 0),
-        Size = UDim2.new(0.2, 0, 0.4, 0),
-        ZIndex = 52,
+        Position = UDim2.new(0.4, 0, 0.2, 0),
+        Size = UDim2.new(0.2, 0, 0.15, 0),
+        ZIndex = 102,
         Parent = canvas
     })
-    table.insert(self.ESPPreview.Objects, playerModel)
+    table.insert(self.ESPPreview.Objects, playerHead)
+
+    local playerTorso = Library:Create('Frame', {
+        BackgroundColor3 = Color3.fromRGB(80, 80, 80),
+        BorderSizePixel = 0,
+        Position = UDim2.new(0.35, 0, 0.35, 0),
+        Size = UDim2.new(0.3, 0, 0.3, 0),
+        ZIndex = 102,
+        Parent = canvas
+    })
+    table.insert(self.ESPPreview.Objects, playerTorso)
+
+    local playerLeftArm = Library:Create('Frame', {
+        BackgroundColor3 = Color3.fromRGB(70, 70, 70),
+        BorderSizePixel = 0,
+        Position = UDim2.new(0.2, 0, 0.35, 0),
+        Size = UDim2.new(0.15, 0, 0.3, 0),
+        ZIndex = 102,
+        Parent = canvas
+    })
+    table.insert(self.ESPPreview.Objects, playerLeftArm)
+
+    local playerRightArm = Library:Create('Frame', {
+        BackgroundColor3 = Color3.fromRGB(70, 70, 70),
+        BorderSizePixel = 0,
+        Position = UDim2.new(0.65, 0, 0.35, 0),
+        Size = UDim2.new(0.15, 0, 0.3, 0),
+        ZIndex = 102,
+        Parent = canvas
+    })
+    table.insert(self.ESPPreview.Objects, playerRightArm)
+
+    local playerLeftLeg = Library:Create('Frame', {
+        BackgroundColor3 = Color3.fromRGB(60, 60, 60),
+        BorderSizePixel = 0,
+        Position = UDim2.new(0.35, 0, 0.65, 0),
+        Size = UDim2.new(0.15, 0, 0.2, 0),
+        ZIndex = 102,
+        Parent = canvas
+    })
+    table.insert(self.ESPPreview.Objects, playerLeftLeg)
+
+    local playerRightLeg = Library:Create('Frame', {
+        BackgroundColor3 = Color3.fromRGB(60, 60, 60),
+        BorderSizePixel = 0,
+        Position = UDim2.new(0.5, 0, 0.65, 0),
+        Size = UDim2.new(0.15, 0, 0.2, 0),
+        ZIndex = 102,
+        Parent = canvas
+    })
+    table.insert(self.ESPPreview.Objects, playerRightLeg)
 
     if espSettings.Boxes then
         local box = Library:Create('Frame', {
             BackgroundTransparency = 1,
             BorderColor3 = espSettings.BoxColor or Color3.fromRGB(255, 255, 255),
-            BorderSizePixel = espSettings.BoxThickness or 2,
-            Position = UDim2.new(0.3, 0, 0.3, 0),
-            Size = UDim2.new(0.4, 0, 0.5, 0),
-            ZIndex = 53,
+            BorderSizePixel = 2,
+            Position = UDim2.new(0.15, 0, 0.15, 0),
+            Size = UDim2.new(0.7, 0, 0.7, 0),
+            ZIndex = 103,
             Parent = canvas
         })
         table.insert(self.ESPPreview.Objects, box)
@@ -3730,36 +3779,36 @@ function Library:UpdateESPPreview(espSettings)
         local nameLabel = Library:CreateLabel({
             Text = "PlayerName",
             TextColor3 = espSettings.NameColor or Color3.fromRGB(255, 255, 255),
-            TextSize = espSettings.NameSize or 12,
-            Position = UDim2.new(0.3, 0, 0.15, 0),
-            Size = UDim2.new(0.4, 0, 0, 15),
-            ZIndex = 54,
+            TextSize = 13,
+            Position = UDim2.new(0.15, 0, 0.05, 0),
+            Size = UDim2.new(0.7, 0, 0, 15),
+            ZIndex = 104,
             Parent = canvas
         })
         table.insert(self.ESPPreview.Objects, nameLabel)
     end
 
     if espSettings.HealthBars then
-        local healthBarOuter = Library:Create('Frame', {
+        local healthBarBackground = Library:Create('Frame', {
             BackgroundColor3 = Color3.fromRGB(40, 40, 40),
             BorderSizePixel = 0,
-            Position = UDim2.new(0.25, 0, 0.3, 0),
-            Size = UDim2.new(0, 4, 0.5, 0),
-            ZIndex = 52,
+            Position = UDim2.new(0.1, 0, 0.15, 0),
+            Size = UDim2.new(0.03, 0, 0.7, 0),
+            ZIndex = 102,
             Parent = canvas
         })
         
-        local healthBarInner = Library:Create('Frame', {
+        local healthBarFill = Library:Create('Frame', {
             BackgroundColor3 = espSettings.HealthColor or Color3.fromRGB(0, 255, 0),
             BorderSizePixel = 0,
-            Position = UDim2.new(0, 0, 0.2, 0),
-            Size = UDim2.new(1, 0, 0.6, 0),
-            ZIndex = 53,
-            Parent = healthBarOuter
+            Position = UDim2.new(0, 0, 0.3, 0),
+            Size = UDim2.new(1, 0, 0.4, 0),
+            ZIndex = 103,
+            Parent = healthBarBackground
         })
         
-        table.insert(self.ESPPreview.Objects, healthBarOuter)
-        table.insert(self.ESPPreview.Objects, healthBarInner)
+        table.insert(self.ESPPreview.Objects, healthBarBackground)
+        table.insert(self.ESPPreview.Objects, healthBarFill)
     end
 
     if espSettings.Distance then
@@ -3767,29 +3816,27 @@ function Library:UpdateESPPreview(espSettings)
             Text = "25m",
             TextColor3 = espSettings.DistanceColor or Color3.fromRGB(255, 255, 255),
             TextSize = 11,
-            Position = UDim2.new(0.3, 0, 0.85, 0),
-            Size = UDim2.new(0.4, 0, 0, 12),
-            ZIndex = 54,
+            Position = UDim2.new(0.15, 0, 0.87, 0),
+            Size = UDim2.new(0.7, 0, 0, 12),
+            ZIndex = 104,
             Parent = canvas
         })
         table.insert(self.ESPPreview.Objects, distanceLabel)
     end
 
-    if espSettings.Tracers then
-        local tracer = Library:Create('Frame', {
-            BackgroundColor3 = espSettings.TracerColor or Color3.fromRGB(255, 255, 255),
-            BorderSizePixel = 0,
-            Position = UDim2.new(0.5, 0, 1, 0),
-            Size = UDim2.new(0, 1, 0.4, 0),
-            AnchorPoint = Vector2.new(0.5, 0),
-            Rotation = -45,
-            ZIndex = 52,
-            Parent = canvas
-        })
-        table.insert(self.ESPPreview.Objects, tracer)
-    end
-
     self.ESPPreview.PreviewFrame.Visible = true
 end
+
+function Library:ToggleESPPreview(visible)
+    if self.ESPPreview.PreviewFrame then
+        self.ESPPreview.PreviewFrame.Visible = visible
+    end
+end
+
+Library:GiveSignal(ScreenGui.DescendantAdded:Connect(function(descendant)
+    if descendant:IsA('Frame') and descendant.Name == 'ESPPreview' then
+        Library:MakeDraggable(descendant, 20)
+    end
+end))
 
 return Library
